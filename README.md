@@ -1,127 +1,59 @@
-# [VSCode] [Podman] [ROS2] Workspace Template
+# ScoutBot
 
-[![ROS](https://img.shields.io/badge/ROS-Humble_Hawksbill-blue.svg)](https://docs.ros.org/en/humble)
+Educational environment for developing a bipedal robot. ScoutBot is designed for research in robotics and control engineering with a focus on mono- and bipedal locomotion. The project currently uses mesh (`*.dae`) files from the [Xpp] [ROS2] package for the visualization of motion-plans for legged robots.
 
-This template will get you set up using [ROS2] with [VSCode] and [Podman] as your IDE.
-
-Based on [`athackst/vscode_ros2_workspace`](https://github.com/athackst/vscode_ros2_workspace).
+<p align="center">
+<img align="right" src="https://codeberg.org/fesch/scoutbot/raw/branch/main/media/monoped.gif" />
+</p>
 
 ## Index
 
 - [Repository overview](repository-overview)
-- [Features](features)
-- [How to use this template](how-to-use-this-template)
+- [Install](#install)
+- [Usage](#usage)
+- [Feature matrix](#feature-matrix)
+- [To Do](#to-do)
 
 ## Repository overview
 
-```shell
---[ base_folder
-    |--[ .devcontainer
-        |-- devcontainer.json
-        |-- Dockerfile
-    |--[ .vscode
-    |--[ src
-        |-- <ros packages>
-        |--[ scripts
-```
-
-- [`.devcontainer`](.devcontainer/): Lets [VSCode] know how to mount the container as a workspace.
-- [`.vscode`](.vscode/): Used by [VSCode] to load workspace and preferences.
 - [`src`](src/): Location of [ROS2] code, organized as packages within folders:
-  - [scripts](src/scripts/): Scripts that improve the quality of life.
+  - [`bringup`](src/bringup/):  Hosts launch files.
+  - [`description`](src/description/): Hosts mesh and description files.
+  - [`gazebo`](src/description/): Hosts [Gazebo] files.
+  - [`scripts`](src/scripts/): Scripts that improve the quality of life.
 
-## Features
+## Install
 
-### Style
+- Follow [this](https://github.com/FelixSchausberger/vscode_podman_ros2_workspace) setup to get [ROS2] with [VSCode] and [Podman] as your IDE.
+- Clone this repository and open it in [VSCode] as a container.
 
-[ROS2]-approved formatters are included in the IDE:  
+## Usage
 
-- **C++** uncrustify; config from `ament_uncrustify`
-- **Python** autopep8; [VSCode] settings consistent with the [style guide](https://index.ros.org/doc/ros2/Contributing/Code-Style-Language-Versions/)
+To launch the [Gazebo] simulation:
 
-### Tasks
-
-There are many pre-defined tasks, see [`.vscode/tasks.json`](.vscode/tasks.json) for a complete listing.  Feel free to adjust them to suit your needs. They include and automate many common operations such as:
-
-- Creation of packages inside [`src/`](src/) with proper options, for both `ament_cmake` and `ament_python` build types.
-- Building of whole workspaces or sets of packages, with or without debugging support.
-- Workspace cleaning.
-- Code formatting.
-
-### Debugging
-
-This template sets up debugging for python files, gdb for cpp programs and ROS launch files. See [`.vscode/launch.json`](.vscode/launch.json) for configuration details.
-
-### Continuous Integration
-
-The template also comes with basic continuous integration set up. See [`.github/workflows/ros.yaml`](/.github/workflows/ros.yaml).
-
-To remove a linter just delete it's name from this line:
-
-```yaml
-      matrix:
-          linter: [cppcheck, cpplint, uncrustify, lint_cmake, xmllint, flake8, pep257]
+```shell
+./src/scripts/clean_build.sh
+ros2 launch bringup spawn_scoutbot.launch.py
 ```
 
-## How to use this template
+## Feature matrix
 
-### Prerequisites
+| **Feature**   | **Description**     | **Monoped**        | **Biped**          | **ScoutBot** |
+| :------------ | :------------------ | :----------------- | :----------------- | :----------- |
+| [Gazebo]      | Spawns in [Gazebo]  | :heavy_check_mark: | :heavy_check_mark: | :x:          |
+| Transmission  | Simulated actuators | :warning:          | :x:                | :x:          |
+| [RViz]        | Shows in [RViz]     | :x:                | :x:                | :x:          |
+| CAD (`*.dae`) | CAD model           | :heavy_check_mark: | :heavy_check_mark: | :x:          |
 
-Install:
+## To Do
 
-- [Podman](https://podman.io/getting-started/installation)
-- [VSCode](https://code.visualstudio.com/docs/setup/linux)
-- [VSCode remote containers plugin](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+1. Add transmissions to [Gazebo] simulation
+1. Set up [RViz]
+1. Work on mechanical setup (CAD)
 
-### Get the template
-
-Click on "Use this template"
-
-![template_use](https://user-images.githubusercontent.com/6098197/91331899-43f23b80-e780-11ea-92c8-b4665ce126f1.png)
-
-### Create your repository
-
-On the next dialog, name the repository you would like to start and decide if you want all of the branches, or just the latest LTS: humble.
-
-![template_new](https://user-images.githubusercontent.com/6098197/91332035-713ee980-e780-11ea-81d3-13b170f568b0.png)
-
-Github will then create a new repository with the contents of this one in your account.  It grabs the latest changes as "initial commit".
-
-### Clone your repo
-
-Now you can clone your repo as normal
-
-![template_download](https://user-images.githubusercontent.com/6098197/91332342-e4e0f680-e780-11ea-9525-49b0afa0e4bb.png)
-
-### Open it in [VSCode]
-
-Now that you've cloned your repo onto your computer, you can open it in [VSCode] (File->Open Folder).
-
-When you open it for the first time, you should see a little popup that asks you if you would like to open it in a container.  Say yes!
-
-![template_vscode](https://user-images.githubusercontent.com/6098197/91332551-36898100-e781-11ea-9080-729964373719.png)
-
-If you don't see the pop-up, click on the little green square in the bottom left corner, which should bring up the container dialog
-
-![template_vscode_bottom](https://user-images.githubusercontent.com/6098197/91332638-5d47b780-e781-11ea-9fb6-4d134dbfc464.png)
-
-In the dialog, select "Remote Containers: Reopen in container"
-
-[VSCode] will build the Dockerfile inside of [`.devcontainer`](.devcontainer/) for you.  If you open a terminal inside [VSCode] (Terminal->New Terminal), you should see that your username has been changed to `ros`, and the bottom left green corner should say "Dev Container"
-
-![template_container](https://user-images.githubusercontent.com/6098197/91332895-adbf1500-e781-11ea-8afc-7a22a5340d4a.png)
-
-### Update the template with your code
-
-1. Specify the repositories you want to include in your workspace in [`src/ros2.repos`](src/ros2.repos) or delete [`src/ros2.repos`](src/ros2.repos) and develop directly within the workspace.
-2. If you are using a [`src/ros2.repos`](src/ros2.repos) file, import the contents `Terminal->Run Task..->import from workspace file`
-3. Install dependencies `Terminal->Run Task..->install dependencies`
-4. (optional) Adjust scripts to your liking.  These scripts are used both within tasks and CI.
-   - [`src/scripts/setup.sh`](src/scripts/setup.sh) The setup commands for your code.  Default to import workspace and install dependencies.
-   - [`src/scripts/build.sh`](src/scripts/build.sh) The build commands for your code.  Default to `--merge-install` and `--symlink-install`
-   - [`src/scripts/test.sh`](src/scripts/test.sh) The test commands for your code.
-5. Develop!
-
+[Gazebo]: https://gazebosim.org/home
 [Podman]: https://podman.io
 [ROS2]: http://www.ros.org
+[RViz]: http://wiki.ros.org/rviz
 [VSCode]: https://code.visualstudio.com/
+[Xpp]: https://github.com/leggedrobotics/xpp

@@ -1,0 +1,188 @@
+<robot name="biped">
+    <link name="base">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="31.5" />
+            <inertia ixx="0.00506133333333" ixy="0.0" ixz="0.0" iyy="0.00506133333333" iyz="0.0" izz="0.00293333333333"/>
+        </inertial>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.30 0.30 0.30"/>
+            </geometry>
+        </collision>
+	    <visual>
+	      <geometry>
+	        <box size="0.30 0.30 0.30"/>
+	      </geometry>
+	      <material name="gray">
+	        <color rgba="0.3 0.3 0.3 1.0"/>
+	      </material>
+	    </visual>
+    </link>
+    
+    <!-- LEFT LEG -->
+    <link name="L_hipassembly">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="7.5" />
+            <inertia ixx="0.00140906974933" ixy="0.0" ixz="0.0" iyy="0.001529597616" iyz="0.0" izz="0.000218659333333"/>
+        </inertial>
+        <collision>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+	      <geometry>
+	        <mesh filename="package://description/meshes/leg/hipassembly.dae" scale="1 1 1"/>
+	      </geometry>
+        </collision>
+	    <visual>
+	      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+	      <geometry>
+	        <mesh filename="package://description/meshes/leg/hipassembly.dae" scale="1 1 1"/>
+	      </geometry>
+	    </visual>
+    </link>
+    <link name="L_upperleg">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="7.5" />
+            <inertia ixx="0.000119502849333" ixy="0.0" ixz="0.0" iyy="0.00158478921733" iyz="0.0" izz="0.00158585686667"/>
+        </inertial>
+        <collision>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+	      <geometry>
+	        <mesh filename="package://description/meshes/leg/upperleg.dae" scale="1 1 1"/>
+	      </geometry>
+        </collision>
+	    <visual>
+	      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+	      <geometry>
+	        <mesh filename="package://description/meshes/leg/upperleg.dae" scale="1 1 1"/>
+	      </geometry>
+	    </visual>
+    </link>
+    <link name="L_lowerleg">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="1.95" />
+            <inertia ixx="1.74153666667e-05" ixy="0.0" ixz="0.0" iyy="0.000370889177667" iyz="0.0" izz="0.000363771677667"/>
+        </inertial>
+        <collision>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+	      <geometry>
+	        <mesh filename="package://description/meshes/leg/lowerleg.dae" scale="1 1 1"/>
+	      </geometry>
+        </collision>
+	    <visual>
+	      <geometry>
+	        <mesh filename="package://description/meshes/leg/lowerleg.dae" scale="1 1 1"/>
+	      </geometry>
+	    </visual>
+    </link>
+    
+    <joint name="L_haa_joint" type="revolute">
+        <origin xyz="0.00000 0.1 -0.15000" rpy="2.0344439357957036 1.5707962290814481 -1.1071487177940917"/>
+        <parent link="base"/>
+        <child  link="L_hipassembly"/>
+        <limit effort="200" lower="-1.6" upper="1.6" velocity="1.0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+    <joint name="L_hfe_joint" type="revolute">
+        <origin xyz="0.08000 0.00000 0.00000" rpy="1.5707963705062866 -0.0 0.0"/>
+        <parent link="L_hipassembly"/>
+        <child  link="L_upperleg"/>
+        <limit effort="200" lower="-1.6" upper="1.6" velocity="1.0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+    <joint name="L_kfe_joint" type="revolute">
+        <origin xyz="0.35000 0.00000 0.00000" rpy="0.0 0.0 0.0"/>
+        <parent link="L_upperleg"/>
+        <child  link="L_lowerleg"/>
+        <limit effort="200" lower="-1.6" upper="1.6" velocity="1.0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+    
+    
+    
+    <!-- RIGHT LEG -->
+    <link name="R_hipassembly">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="7.5" />
+            <inertia ixx="0.00140906974933" ixy="0.0" ixz="0.0" iyy="0.001529597616" iyz="0.0" izz="0.000218659333333"/>
+        </inertial>
+        <collision>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+	      <geometry>
+	        <mesh filename="package://description/meshes/leg/hipassembly.dae" scale="1 1 1"/>
+	      </geometry>
+        </collision>
+	    <visual>
+	      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+	      <geometry>
+	        <mesh filename="package://description/meshes/leg/hipassembly.dae" scale="1 1 1"/>
+	      </geometry>
+	    </visual>
+    </link>
+    <link name="R_upperleg">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="7.5" />
+            <inertia ixx="0.000119502849333" ixy="0.0" ixz="0.0" iyy="0.00158478921733" iyz="0.0" izz="0.00158585686667"/>
+        </inertial>
+        <collision>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+	      <geometry>
+	        <mesh filename="package://description/meshes/leg/upperleg.dae" scale="1 1 1"/>
+	      </geometry>
+        </collision>
+	    <visual>
+	      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+	      <geometry>
+	        <mesh filename="package://description/meshes/leg/upperleg.dae" scale="1 1 1"/>
+	      </geometry>
+	    </visual>
+    </link>
+    <link name="R_lowerleg">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="1.95" />
+            <inertia ixx="1.74153666667e-05" ixy="0.0" ixz="0.0" iyy="0.000370889177667" iyz="0.0" izz="0.000363771677667"/>
+        </inertial>
+        <collision>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+	      <geometry>
+	        <mesh filename="package://description/meshes/leg/lowerleg.dae" scale="1 1 1"/>
+	      </geometry>
+        </collision>
+	    <visual>
+	      <geometry>
+	        <mesh filename="package://description/meshes/leg/lowerleg.dae" scale="1 1 1"/>
+	      </geometry>
+	    </visual>
+    </link>
+    
+    <joint name="R_haa_joint" type="revolute">
+        <origin xyz="0.00000 -0.1 -0.15000" rpy="2.0344439357957036 1.5707962290814481 -1.1071487177940917"/>
+        <parent link="base"/>
+        <child  link="R_hipassembly"/>
+        <limit effort="200" lower="-1.6" upper="1.6" velocity="1.0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+    <joint name="R_hfe_joint" type="revolute">
+        <origin xyz="0.08000 0.00000 0.00000" rpy="1.5707963705062866 -0.0 0.0"/>
+        <parent link="R_hipassembly"/>
+        <child  link="R_upperleg"/>
+        <limit effort="200" lower="-1.6" upper="1.6" velocity="1.0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+    <joint name="R_kfe_joint" type="revolute">
+        <origin xyz="0.35000 0.00000 0.00000" rpy="0.0 0.0 0.0"/>
+        <parent link="R_upperleg"/>
+        <child  link="R_lowerleg"/>
+        <limit effort="200" lower="-1.6" upper="1.6" velocity="1.0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+    
+    
+</robot>
+
